@@ -1,0 +1,24 @@
+Display
+
+<Display>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Gallery of interpretations for A Past Outside of Time"
+        Image:
+            id: image
+            source: root.display_image()
+            size_hint: 1, 6
+        Label:
+            text: ""
+            id: desc
+        BoxLayout:
+            Button:
+                text: "<<<"
+                background_color: "black"
+                on_press: root.back_image()
+
+            Button:
+                text: ">>>"
+                background_color: "black"
+                on_press: root.advance_image()

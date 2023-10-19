@@ -1,0 +1,46 @@
+Display
+
+<Display>:
+    BoxLayout:
+        padding: "15dp"
+        orientation: "vertical"
+        GridLayout:
+            rows: 4
+            TextInput:
+                text: "Enter image name (e.g., image.png)"
+                size_hint: .5, 3
+            Button:
+                text: "Load Image"
+                size_hint: .5, 3
+            Button:
+                text: "Black and White"
+                size_hint: .5, 3
+            Button:
+                text: "Inverse"
+                size_hint: .5, 3
+            Button:
+                text: "Line Drawing"
+                size_hint: .5, 3
+            Button:
+                text: "Pointilism"
+                size_hint: .5, 3
+            Button:
+                text: "Sepia"
+                size_hint: .5, 3
+            Button:
+                text: "Pixelate"
+                size_hint: .5, 3
+        Image:
+            id: image
+            source: root.display_image()
+            size_hint: 1, 5
+        BoxLayout:
+            Button:
+                text: "<<<"
+                background_color: "black"
+                on_press: root.back_image()
+
+            Button:
+                text: ">>>"
+                background_color: "black"
+                on_press: root.advance_image()
