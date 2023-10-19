@@ -18,7 +18,7 @@ class Display(Screen):
                 return images[2]
             elif self.ids.name.text == images[3]:
                 return images[3]
-    def display_image(self, button):
+    def display_image(self):
         if self.verify_image(self.ids.name.text) == image0:
             return image0
         elif self.verify_image(self.ids.name.text) == "dualvector.jpeg":
