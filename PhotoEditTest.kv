@@ -8,7 +8,7 @@ Display
             rows: 4
             TextInput:
                 id: name
-                text: "Enter image name (e.g., image.png)"
+                text: "Enter image name (and the format)"
                 size_hint: .5, 3
             Button:
                 text: "Load Image"
@@ -17,21 +17,27 @@ Display
             Button:
                 text: "Black and White"
                 size_hint: .5, 3
+                #on_release: image.source = root.oldtimey(name.text)
             Button:
                 text: "Inverse"
                 size_hint: .5, 3
+                #on_release: image.source = root.inverse(name.text)
             Button:
                 text: "Line Drawing"
                 size_hint: .5, 3
+                #on_release: image.source = root.linedrawing(name.text)
             Button:
                 text: "Pointilism"
                 size_hint: .5, 3
+                #on_release: image.source = root.pointilism(name.text)
             Button:
                 text: "Sepia"
                 size_hint: .5, 3
+                on_release: image.source = root.sepia(name.text, ".jpeg")
             Button:
                 text: "Pixelate"
                 size_hint: .5, 3
+                #on_release: image.source = root.pixelate(name.text)
         Image:
             id: image
             source: "placeholder.png"
