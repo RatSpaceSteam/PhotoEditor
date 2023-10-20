@@ -13,7 +13,7 @@ Display
             Button:
                 text: "Load Image"
                 size_hint: .5, 3
-                on_release: root.verify_image(name.text)
+                on_release: image.source = name.text
             Button:
                 text: "Black and White"
                 size_hint: .5, 3
@@ -34,5 +34,5 @@ Display
                 size_hint: .5, 3
         Image:
             id: image
-            source: root.display_image()
+            source: "placeholder.png"
             size_hint: 1, 5
