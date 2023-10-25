@@ -13,32 +13,32 @@ Display
             Button:
                 text: "Load Image"
                 size_hint: .5, 3
-                on_release: image.source = name.text
+                on_release: pic.source = name.text
             Button:
                 text: "Black and White"
                 size_hint: .5, 3
-                #on_release: image.source = root.oldtimey(name.text)
+                #on_release: root.oldtimey()
             Button:
                 text: "Inverse"
                 size_hint: .5, 3
-                #on_release: image.source = root.inverse(name.text)
+                on_release: root.inverse()
             Button:
                 text: "Line Drawing"
                 size_hint: .5, 3
-                #on_release: image.source = root.linedrawing(name.text)
+                #on_release: root.linedrawing()
             Button:
                 text: "Pointilism"
                 size_hint: .5, 3
-                #on_release: image.source = root.pointilism(name.text)
+                #on_release: root.pointilism()
             Button:
                 text: "Sepia"
                 size_hint: .5, 3
-                on_release: image.source = root.sepia(name.text, ".jpeg")
+                on_release: root.sepia()
             Button:
                 text: "Pixelate"
                 size_hint: .5, 3
-                #on_release: image.source = root.pixelate(name.text)
+                on_release: root.pixelate()
         Image:
-            id: image
-            source: "placeholder.png"
+            id: pic
+            source: ""
             size_hint: 1, 5
