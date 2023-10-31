@@ -1,6 +1,10 @@
+import random
+
 from PIL import Image
+from PIL.ImageDraw import ImageDraw
 from kivy.app import App
 from kivy.uix import image
+from PIL import Image, ImageDraw
 from kivy.uix.screenmanager import Screen
 
 
@@ -9,7 +13,13 @@ class PhotoEditTestApp(App):
 
 class Display(Screen):
     def oldtimey(self):
-        pass
+        img = Image.open(self.ids.pic.source)
+        pixels = img.load()
+
+        index = self.ids.pic.source.find(".")
+        name = self.ids.pic.source[0:index]
+        img.save(name + "_blackandwhite.png")
+        self.ids.pic.source = name + "_blackandwhite.png"
     def inverse(self):
         img = Image.open(self.ids.pic.source)
         pixels = img.load()
@@ -29,7 +39,55 @@ class Display(Screen):
     def linedrawing(self):
         img = Image.open(self.ids.pic.source)
         pixels = img.load()
-
+        templist = []
+        for y in range(img.size[1]):
+            for x in range(img.size[0]):
+                templist.append(pixels[x, y])
+            for z in range(len(templist)):
+                if z > 0:
+                    if (pixels[z, y][0] - templist[z - 1][0]) > 5:
+                        red = pixels[z, y][0] * 0
+                        green = pixels[z, y][1] * 0
+                        blue = pixels[z, y][2] * 0
+                    else:
+                        maxred = 255 - pixels[z, y][0]
+                        maxgreen = 255 - pixels[z, y][1]
+                        maxblue = 255 - pixels[z, y][2]
+                        red = pixels[z, y][0] + maxred
+                        green = pixels[z, y][1] + maxgreen
+                        blue = pixels[z, y][2] + maxblue
+                    if (pixels[z, y][1] - templist[z - 1][1]) > 5:
+                        red = pixels[z, y][0] * 0
+                        green = pixels[z, y][1] * 0
+                        blue = pixels[z, y][2] * 0
+                    else:
+                        maxred = 255 - pixels[z, y][0]
+                        maxgreen = 255 - pixels[z, y][1]
+                        maxblue = 255 - pixels[z, y][2]
+                        red = pixels[z, y][0] + maxred
+                        green = pixels[z, y][1] + maxgreen
+                        blue = pixels[z, y][2] + maxblue
+                    if (pixels[z, y][2] - templist[z - 1][2]) > 5:
+                        red = pixels[z, y][0] * 0
+                        green = pixels[z, y][1] * 0
+                        blue = pixels[z, y][2] * 0
+                    else:
+                        maxred = 255 - pixels[z, y][0]
+                        maxgreen = 255 - pixels[z, y][1]
+                        maxblue = 255 - pixels[z, y][2]
+                        red = pixels[z, y][0] + maxred
+                        green = pixels[z, y][1] + maxgreen
+                        blue = pixels[z, y][2] + maxblue
+                    pixels[z, y] = (red, green, blue)
+                else:
+                    maxred = 255 - pixels[z, y][0]
+                    maxgreen = 255 - pixels[z, y][1]
+                    maxblue = 255 - pixels[z, y][2]
+                    red = pixels[z, y][0] + maxred
+                    green = pixels[z, y][1] + maxgreen
+                    blue = pixels[z, y][2] + maxblue
+                    pixels[z, y] = (red, green, blue)
+            templist = []
         index = self.ids.pic.source.find(".")
         name = self.ids.pic.source[0:index]
         img.save(name + "_linedrawing.png")
@@ -37,11 +95,21 @@ class Display(Screen):
     def pointilism(self):
         img = Image.open(self.ids.pic.source)
         pixels = img.load()
-
+        canvas = Image.new(mode="RGB", size=(img.size[0], img.size[1]), color="white")
+        for _y in range(100000):
+            size = random.randint(5, 15)
+            pix_x = random.randint(0, img.size[0] - size)
+            pix_y = random.randint(0, img.size[1] - size)
+            red = pixels[pix_x, pix_y][0]
+            green = pixels[pix_x, pix_y][1]
+            blue = pixels[pix_x, pix_y][2]
+            ellipsebox = [(pix_x, pix_y), (pix_x + size, pix_y + size)]
+            draw = ImageDraw.Draw(canvas)
+            draw.ellipse(ellipsebox, fill=(red, green, blue))
         index = self.ids.pic.source.find(".")
         name = self.ids.pic.source[0:index]
-        img.save(name + "_pointilism.png")
-        self.ids.pic.source = name + "_pointilism.png"
+        canvas.save(name + "_pointillism.png")
+        self.ids.pic.source = name + "_pointillism.png"
     def sepia(self):
         img = Image.open(self.ids.pic.source)
         pixels = img.load()
@@ -65,6 +133,7 @@ class Display(Screen):
                 blue = pixels[j, i][2]
                 for k in range(i, i + 20):
                     for l in range(j, j + 20):
+                        print(pixels[i, j])
                         pixels[k, l] = (red, green, blue)
         index = self.ids.pic.source.find(".")
         name = self.ids.pic.source[0:index]
