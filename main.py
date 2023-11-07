@@ -8,14 +8,21 @@ from PIL import Image, ImageDraw
 from kivy.uix.screenmanager import Screen
 
 
-class PhotoEditTestApp(App):
+class PhotoEditApp(App):
     pass
 
 class Display(Screen):
     def oldtimey(self):
         img = Image.open(self.ids.pic.source)
         pixels = img.load()
-
+        for y in range(img.size[1]):
+            for x in range(img.size[0]):
+                r = 255 - pixels[x, y][0]
+                g = 255 - pixels[x, y][1]
+                b = 255 - pixels[x, y][2]
+                sum = r + b + g
+                avg = int(sum / 3)
+                pixels[x, y] = (avg, avg, avg)
         index = self.ids.pic.source.find(".")
         name = self.ids.pic.source[0:index]
         img.save(name + "_blackandwhite.png")
@@ -144,4 +151,4 @@ class Display(Screen):
 
 
 
-PhotoEditTestApp().run()
+PhotoEditApp().run()
