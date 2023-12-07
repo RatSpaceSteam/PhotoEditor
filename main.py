@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw
 from kivy.uix.screenmanager import Screen
 
 
-class PhotoEditApp(App):
+class PhotoEdittApp(App):
     pass
 
 class Display(Screen):
@@ -151,4 +151,4 @@ class Display(Screen):
 
 
 
-PhotoEditApp().run()
+PhotoEdittApp().run()
